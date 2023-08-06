@@ -29,10 +29,10 @@ router.get("/", function (req, res, next) {
   console.log(req.cookies["token"]);
 
   if (
-    req.cookies["token"] == "undefined" ||
-    req.cookies["token"] == undefined
+    req.cookies["utoken"] == undefined ||
+    req.cookies["utoken"] == "undefined"
   ) {
-    res.render("admin_login");
+    res.render("login");
   } else {
     res.render("admin");
   }

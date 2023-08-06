@@ -1,5 +1,15 @@
 let data = JSON.parse(localStorage.getItem("blog"));
-console.log(data);
+// console.log(data.id);
+
+// get detail of  a blog
+
+async function GETBLOGDATA(id) {
+  let data = await fetch(`/blog/detail/${id}`);
+  let res = await data.json();
+  console.log(res.data[0]);
+  localStorage.setItem("blog", JSON.stringify(res.data[0]));
+  window.location.reload();
+}
 
 // console.log(data.comment);
 document.querySelector("#Blog-image>img").src = `/images/${data.Image}`;
@@ -7,7 +17,6 @@ document.querySelector("#blog_title").innerHTML = data.blogName;
 document.querySelector("#acctual_Blog").innerHTML = data.blogContent;
 document.querySelector("#cate").innerHTML = "Category:" + data.blogCategory;
 document.querySelector("#cAt").innerHTML = "CreatedAt :" + data.createAt;
-
 ///LOG OUT
 
 document.getElementById("logout").addEventListener("click", LOG_OUT);
@@ -50,6 +59,8 @@ async function Create_Comment() {
 
   let response = await res.json();
   console.log(response);
+
+  GETBLOGDATA(data.id);
 }
 
 function APPEND_COMMENT(data) {
